@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "Sop Marketplace"
+version = "1.0.0"
+id = "artifacts/sop"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 21203
+
+[services.development]
+run = "pnpm --filter @workspace/sop run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/sop", "run", "build" ]
+publicDir = "artifacts/sop/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "21203"
+BASE_PATH = "/"
